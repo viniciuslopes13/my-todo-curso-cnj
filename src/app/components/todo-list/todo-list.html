@@ -1,7 +1,13 @@
-<h1>{{name}}</h1>
+<ng-content select="[title]"></ng-content>
 <div>
-    <label for="nome">Nome: </label>
-    <input type="text" name="nome" id="nome">
+    <ng-content select="[label]"></ng-content>
+    <input type="text" name="nome" id="nome" #todoName>
 </div>
-<button>Adicionar</button>
-<p class="foo">todo-list works!</p>
+<button (click)="addTask(todoName.value)">Adicionar</button>
+<ul>
+    @for (task of tasks; track task){
+        <li>{{task.name}}</li>
+    } @empty {
+        <li>Nenhum item para exibir.</li>
+    }
+</ul>

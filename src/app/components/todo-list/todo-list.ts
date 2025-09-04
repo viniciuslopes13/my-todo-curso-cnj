@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+
+interface Task{
+  name: string;
+}
 
 @Component({
   selector: 'app-todo-list',
@@ -9,5 +13,21 @@ import { Component } from '@angular/core';
 export class TodoList {
 
   name: string = "Lista de Tarefas";
+
+  tasks: Task[] = []
+
+  @ViewChild("todoName") todoInputRef: ElementRef<HTMLInputElement> = null!;
+
+  addTask(name: string){
+    if(name){
+      this.tasks.push({name});
+      console.log(this.todoInputRef.nativeElement.value);
+      this.todoInputRef.nativeElement.value = '';
+    }
+  }
+
+  showHello(){
+    console.log("Clicou no botao")
+  }
 
 }
