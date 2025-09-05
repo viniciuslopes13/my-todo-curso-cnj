@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 
 interface Task{
@@ -17,6 +18,10 @@ export class TodoList {
   tasks: Task[] = []
 
   @ViewChild("todoName") todoInputRef: ElementRef<HTMLInputElement> = null!;
+
+  constructor(private http: HttpClient){
+    
+  }
 
   addTask(name: string){
     if(name){
