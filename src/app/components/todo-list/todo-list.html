@@ -1,13 +1,17 @@
-<ng-content select="[title]"></ng-content>
-<div>
-    <ng-content select="[label]"></ng-content>
-    <input type="text" name="nome" id="nome" #todoName>
+<div class="container">
+    <ng-content select="[title]"></ng-content>
+    <div>
+        <ng-content select="[label]"></ng-content>
+        <input type="text" name="nome" id="nome" #todoName>
+    </div>
+    <button (click)="addTask(todoName.value)">Adicionar</button>
+    <ul>
+        @for (task of tasks; track task){
+            <li>{{task.name}}  
+                <button (click)="removeTask(task)">Remover</button>
+            </li>
+        } @empty {
+            <li>Nenhum item para exibir.</li>
+        }
+    </ul>
 </div>
-<button (click)="addTask(todoName.value)">Adicionar</button>
-<ul>
-    @for (task of tasks; track task){
-        <li>{{task.name}}</li>
-    } @empty {
-        <li>Nenhum item para exibir.</li>
-    }
-</ul>

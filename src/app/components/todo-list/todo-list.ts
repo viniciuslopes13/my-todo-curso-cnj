@@ -26,6 +26,14 @@ export class TodoList {
     }
   }
 
+  removeTask(task: Task){
+    if(this.tasks.includes(task)){
+      let index = this.tasks.indexOf(task)
+      console.log(index)
+      this.tasks.splice(index,1);
+    }
+  }
+
   showHello(){
     console.log("Clicou no botao")
   }
