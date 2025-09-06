@@ -29,18 +29,29 @@ export class TodoList {
 
   addTask(name: string){
     if(name){
-      this.tasks.push( {id: uuidv4(), name} );
-      console.log(this.todoInputRef.nativeElement.value);
+      this.http.post('http://localhost:3000/tasks', {id: uuidv4(), name})
+      .toPromise()
+      .then( response => {
+        console.log(response)
+        this.loadTasks()
+      })
+      .catch( error => {
+        console.log(error)
+      })
       this.todoInputRef.nativeElement.value = '';
     }
   }
 
   removeTask(task: Task){
-    if(this.tasks.includes(task)){
-      let index = this.tasks.indexOf(task)
-      console.log(index)
-      this.tasks.splice(index,1);
-    }
+    this.http.delete(`http://localhost:3000/tasks/${task.id}`)
+    .toPromise()
+    .then(response => {
+      console.log(response)
+      this.loadTasks()
+    })
+    .catch( error => {
+      console.log(error)
+    });
   }
 
   showHello(){
@@ -48,9 +59,10 @@ export class TodoList {
   }
 
   loadTasks(){
-    this.http.get<Task>('http://localhost:3000/tasks')
+    this.http.get<Task[]>('http://localhost:3000/tasks')
     .toPromise()
     .then((response) => {
+      this.tasks = response!;
       console.log(response);
     })
     .catch( error => {
